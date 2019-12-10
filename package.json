@@ -2,8 +2,13 @@
   "name": "codesinging",
   "description": "Code of CodeSinging Site",
   "scripts": {
-
+    "docs:dev": "npx vuepress dev docs",
+    "docs:build": "npx vuepress build docs",
+    "deploy": "bash deploy.sh"
   },
   "author": "codesinging",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.2.0"
+  }
 }
