@@ -5,13 +5,12 @@ module.exports = {
         nav: [
             { text: 'Home', link: '/' },
             { text: 'VuePress', link: '/vuepress/' },
+            { text: 'Git', link: '/git/' },
         ],
         sidebar: {
             '/vuepress/': [
                 {
                     title: 'VuePress',
-                    collapsable: false,
-                    sidebarDepth: 2,
                     children: [
                         '',
                         'getting-started',
@@ -22,10 +21,19 @@ module.exports = {
                         'deploying',
                     ]
                 }
+            ],
+            '/git/': [
+                {
+                    title: 'Git',
+                    children: [
+                        '',
+                    ]
+                }
             ]
         },
         sidebarDepth: 2,
         lastUpdated: true,
-        repo: 'codesinging/codesinging'
+        repo: 'codesinging/codesinging',
+        smoothScroll: true
     }
 }
