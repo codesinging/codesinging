@@ -6,6 +6,8 @@ module.exports = {
             { text: 'Home', link: '/' },
             { text: 'VuePress', link: '/vuepress/' },
             { text: 'Git', link: '/git/' },
+            { text: 'MacOS', link: '/macos/' },
+            { text: 'Laravel', link: '/laravel/' },
         ],
         sidebar: {
             '/vuepress/': [
@@ -25,6 +27,24 @@ module.exports = {
             '/git/': [
                 {
                     title: 'Git',
+                    children: [
+                        '',
+                    ]
+                }
+            ],
+            '/laravel/': [
+                {
+                    title: 'Laravel',
+                    children: [
+                        '',
+                        'homestead',
+                        'valet',
+                    ]
+                }
+            ],
+            '/macos/': [
+                {
+                    title: 'MacOS',
                     children: [
                         '',
                     ]
