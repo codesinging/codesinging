@@ -9,3 +9,5 @@ footer: MIT Licensed | Copyright © 2019 codesinging
 
 - [VuePress](./vuepress/)
 - [Git](./git/)
+- [MacOS](./macos/)
+- [Laravel](./laravel/)

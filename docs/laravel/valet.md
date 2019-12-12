@@ -1,4 +1,4 @@
-# Laravel Valet
+# Valet
 
 ## Introduction
 
@@ -105,3 +105,146 @@ Valet even includes a command to share your local sites with the world. No addit
 To share a site, navigate to the site's directory in your terminal and run the `valet share` command. A publicly accessible URL will be inserted into your clipboard and is ready to paste directly into your browser. That's it.
 
 To stop sharing your site, hit `Control + C` to cancel the process.
+
+### Site Specific Environment Variables
+
+Some applications using other frameworks may depend on server environment variables but do not provide a way for those variables to be configured within your project. Valet allows you to configure site specific environment variables by adding a `.valet-env.php` file within the root of your project. These variables will be added to the `$_SERVER` global array:
+
+``` php
+<?php
+
+return [
+    'WEBSITE_NAME' => 'My Blog',
+];
+```
+
+### Custom Valet Drivers
+
+You can write your own Valet "driver" to serve PHP applications running on another framework or CMS that is not natively supported by Valet. When you install Valet, a `~/.config/valet/Drivers` directory is created which contains a `SimpleValetDriver.php` file. This file contains a sample driver implementation to demonstrate how to write a custom driver. Writing a driver only requires you to implement three methods: `serves`, `isStaticFile`, and `frontControllerPath`.
+
+All these methods receive the `$sitePath`, `$siteName`, and `$uri` values as their arguments. The `$sitePath` is the fully qualified path to the site being served on your machine, such as `/Users/Lisa/Site/my-project`. The `$siteName` is the "host" / "site name" portion of the domain(`my-project`). The `$uri` is the incoming request URI(`/foo/bar`).
+
+Once you have completed your custom Valet driver, place it in the `~/.config/valet/Drivers` directory using the `FrameworkValetDriver.php` naming convention. For example, if you are writing a custom valet driver for WordPress, your file name should be `WordPressValetDriver.php`.
+
+Let's take a look at a sample implementation of each method your custom Valet driver should implement.
+
+#### The `serves` Method
+
+The `serves` method should return `true` if your driver should handle the incoming request. Otherwise, the method should return `false`. So, within this method you shold attempt to determine if the given `$sitePath` contains a project of the type you are trying to serve.
+
+For example, let's pretend we are writing a `WordPressValetDriver`. Our `serves` method might look something like this:
+
+``` php
+/**
+ * Determine if the driver serves the request.
+ *
+ * @param  string  $sitePath
+ * @param  string  $siteName
+ * @param  string  $uri
+ * @return bool
+ */
+public function serves($sitePath, $siteName, $uri)
+{
+    return is_dir($sitePath.'/wp-admin');
+}
+```
+
+#### The `isStaticFile` Method
+
+The `isStaticFile` should determine if the incoming request is for a file that is "static", such as an image or a stylesheet. If the file is static, the method should return the fully qualified path to the static file on disk. If the incoming request is not for a static file, the method should return `false`:
+
+``` php
+/**
+ * Determine if the incoming request is for a static file.
+ *
+ * @param  string  $sitePath
+ * @param  string  $siteName
+ * @param  string  $uri
+ * @return string|false
+ */
+public function isStaticFile($sitePath, $siteName, $uri)
+{
+    if (file_exists($staticFilePath = $sitePath.'/public/'.$uri)) {
+        return $staticFilePath;
+    }
+
+    return false;
+}
+```
+
+::: warning
+The `isStaticFile` method will only be called if the `serves` method returns `true` for the incoming request and the request URI is not `/`.
+:::
+
+#### The `frontControllerPath` Method
+
+The `frontControllerPath` method should return the fully qualified path to your application's "front controller", which is typically your "index.php" file or equivalent:
+
+``` php
+/**
+ * Get the fully resolved path to the application's front controller.
+ *
+ * @param  string  $sitePath
+ * @param  string  $siteName
+ * @param  string  $uri
+ * @return string
+ */
+public function frontControllerPath($sitePath, $siteName, $uri)
+{
+    return $sitePath.'/public/index.php';
+}
+```
+
+### Local Drivers
+
+If you would like to define a custom Valet driver for a single application, create a `LocalValetDriver.php` in the application's root directory. Your custom driver may extend the base `ValetDriver` class or extend an existing application specific driver such as the `LaravelValetDriver`:
+
+``` php
+class LocalValetDriver extends LaravelValetDriver
+{
+    /**
+     * Determine if the driver serves the request.
+     *
+     * @param  string  $sitePath
+     * @param  string  $siteName
+     * @param  string  $uri
+     * @return bool
+     */
+    public function serves($sitePath, $siteName, $uri)
+    {
+        return true;
+    }
+
+    /**
+     * Get the fully resolved path to the application's front controller.
+     *
+     * @param  string  $sitePath
+     * @param  string  $siteName
+     * @param  string  $uri
+     * @return string
+     */
+    public function frontControllerPath($sitePath, $siteName, $uri)
+    {
+        return $sitePath.'/public_html/index.php';
+    }
+}
+```
+
+## Other Valet Commands
+
+<style>table th:first-of-type { width: 160px; }</style>
+
+|                Command | Description |
+| ---------------------- | ------------|
+| `valet forget` | Run this command from a "parked" directory to remove it from the parked directory list. |
+| `valet log` | View a list of logs which are written by Valet's services. |
+| `valet paths` | View all of your "parked" paths. |
+| `valet restart` | Restart the Valet daemon. |
+| `valet start` | Start the Valet daemon. |
+| `valet stop` | Stop the Valet daemon. |
+| `valet trust` | Add sudoers files for Brew and Valet to allow Valet commands to be run without prompting for passwords. |
+| `valet uninstall` | Uninstall Valet: Shows instructions for manual uninstall; or pass the --force parameter to aggressively delete all of Valet. |
+
+## Valet Directories & Files
+
+See [Valet Directories & Files](https://laravel.com/docs/6.x/valet#valet-directories-and-files)
