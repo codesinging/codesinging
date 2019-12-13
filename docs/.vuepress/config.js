@@ -8,6 +8,7 @@ module.exports = {
             { text: 'Git', link: '/git/' },
             { text: 'MacOS', link: '/macos/' },
             { text: 'Laravel', link: '/laravel/' },
+            { text: 'ThinkPHP', link: '/thinkphp/' },
         ],
         sidebar: {
             '/vuepress/': [
@@ -47,6 +48,16 @@ module.exports = {
                     title: 'MacOS',
                     children: [
                         '',
+                    ]
+                }
+            ],
+            '/thinkphp/': [
+                {
+                    title: 'ThinkPHP',
+                    children: [
+                        '',
+                        'deploy-to-sae',
+                        'extensions'
                     ]
                 }
             ]
