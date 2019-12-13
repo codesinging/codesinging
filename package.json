@@ -9,6 +9,7 @@
   "author": "codesinging",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/theme-blog": "^1.3.3",
     "vuepress": "^1.2.0"
   }
 }
