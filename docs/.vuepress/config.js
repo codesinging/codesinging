@@ -9,6 +9,7 @@ module.exports = {
             { text: 'MacOS', link: '/macos/' },
             { text: 'Laravel', link: '/laravel/' },
             { text: 'ThinkPHP', link: '/thinkphp/' },
+            { text: 'Fonts', link: '/fonts/' },
         ],
         sidebar: {
             '/vuepress/': [
@@ -60,7 +61,10 @@ module.exports = {
                         'extensions'
                     ]
                 }
-            ]
+            ],
+            '/fonts/': [
+                '',
+            ],
         },
         sidebarDepth: 2,
         lastUpdated: true,
