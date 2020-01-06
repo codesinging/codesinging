@@ -55,6 +55,20 @@ Note that you should run `git pull sae 1 --allow-unrelated-histories` before you
 
 If the terminal show you the correct message, the code has already been pushed to the SAE. You can enter the SAE console to check if the code exists.
 
+## Rewrite
+
+``` htaccess
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+RewriteRule ^(/)?$ public/index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/index.php [L]
+</IfModule>
+```
+
 ## Installing Extension
 
 In order to run a ThinkPHP project in SAE, you must install a extra extension for SAE support.
