@@ -1,0 +1,19 @@
+{
+  "name": "codesinging",
+  "version": "0.0.1",
+  "description": "CodeSinging&#39;s site",
+  "main": "index.js",
+  "authors": {
+    "name": "codesinging",
+    "email": "codesinging@gmail.com"
+  },
+  "repository": "https://github.com/codesinging/codesinging/codesinging",
+  "scripts": {
+    "dev": "vuepress dev src",
+    "build": "vuepress build src"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^1.5.3"
+  }
+}
