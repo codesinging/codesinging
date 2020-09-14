@@ -1,15 +1,12 @@
 ---
 home: true
-heroImage: https://v1.vuepress.vuejs.org/hero.png
-tagline: CodeSinging&#39;s site
-actionText: Quick Start →
-actionLink: /guide/
+tagline: Site of CodeSinging
 features:
-- title: Feature 1 Title
-  details: Feature 1 Description
-- title: Feature 2 Title
-  details: Feature 2 Description
-- title: Feature 3 Title
-  details: Feature 3 Description
+- title: Frontend
+  details: HTML5, CSS3, Javascript, Vue...
+- title: PHP
+  details: Laravel, ThinkPHP, MySQL...
+- title: MacOS
+  details: MacOS Usages, Applications...
 footer: Made by codesinging with ❤️
 ---
