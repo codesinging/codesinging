@@ -46,6 +46,10 @@ module.exports = {
                 link: '/php/'
             },
             {
+                text: 'Git',
+                link: '/git/'
+            },
+            {
                 text: 'Python',
                 link: '/python/'
             }
@@ -85,6 +89,19 @@ module.exports = {
                     ]
                 }
             ],
+            '/git/': [
+                {
+                    title:'Git',
+                    collapsable: false,
+                    children:[
+                        '',
+                        'repo.md',
+                        'branch.md',
+                        'remote.md',
+                        'log.md',
+                    ]
+                }
+            ]
         }
     },
 
